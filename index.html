@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Swe-Gam • Pumps, Solar & Tools</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Rubik:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0f1724;        /* deep navy background */
+      --card: #0b1220;      /* card dark */
+      --muted: #9aa6b2;
+      --accent: #ffd24a;    /* electric yellow */
+      --accent-2: #0078ff;  /* subtle blue for CTAs */
+      --glass: rgba(255,255,255,0.04);
+      --radius: 12px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,#081723 0%, #071423 65%);color:#e6eef6;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;line-height:1.35}
+    a{color:inherit}
+    /* Header */
+    header{position:sticky;top:0;z-index:60;backdrop-filter: blur(6px);background:linear-gradient(180deg, rgba(4,8,15,0.7), rgba(4,8,15,0.55));border-bottom:1px solid rgba(255,255,255,0.03)}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px;}
+    .nav{display:flex;align-items:center;gap:18px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo-icon{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,#06304b,#003a5c);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(1,7,16,0.6)}
+    .logo-icon svg{width:26px;height:26px}
+    .brand{font-family:Rubik,Inter;font-weight:700;font-size:18px;letter-spacing:0.2px}
+    .tag{font-size:12px;color:var(--muted);margin-top:2px}
+    nav .menu{margin-left:28px;display:flex;gap:12px;align-items:center}
+    nav .menu a{padding:8px 12px;border-radius:8px;color:var(--muted);text-decoration:none;font-weight:600}
+    nav .menu a:hover{background:var(--glass);color:#fff}
+    .cta{margin-left:auto;display:flex;gap:10px}
+    .btn{background:var(--accent);color:#071423;font-weight:700;padding:9px 14px;border-radius:10px;text-decoration:none;display:inline-flex;gap:8px;align-items:center}
+    .btn-outline{border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;color:var(--muted);background:transparent}
+    /* Hero */
+    .hero{max-width:1200px;margin:22px auto;padding:28px 18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 10px 40px rgba(2,8,20,0.6);display:grid;grid-template-columns:1fr 360px;gap:20px}
+    .hero h1{font-size:28px;margin:0;font-weight:800;color:#f6f9ff}
+    .hero p{margin:12px 0;color:var(--muted);max-width:57ch}
+    .quick-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .pill{background:rgba(255,255,255,0.02);padding:8px 10px;border-radius:999px;color:var(--muted);font-weight:600}
+    .searchbox{display:flex;gap:8px;align-items:center;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));padding:10px;border-radius:10px}
+    .searchbox input{background:transparent;border:0;outline:0;color:#e6eef6;font-size:15px;width:100%}
+    .hero-right{display:flex;flex-direction:column;gap:12px}
+    .feature-card{background:linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.01));padding:14px;border-radius:12px}
+    .feature-card h3{margin:0;font-size:15px}
+    .feature-card p{color:var(--muted);font-size:13px;margin-top:8px}
+    /* Layout */
+    .layout{max-width:1200px;margin:18px auto;padding:0 18px;display:grid;grid-template-columns:260px 1fr;gap:18px}
+    @media (max-width:980px){.layout{grid-template-columns:1fr}.hero{grid-template-columns:1fr}.hero-right{order:3}.logo span{display:none}}
+    /* Sidebar */
+    .sidebar{position:sticky;top:88px;padding:12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.02)}
+    .side-title{font-weight:700;margin-bottom:8px}
+    .filter-group{margin-top:12px}
+    .filter-group label{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
+    .cat-list{display:flex;flex-direction:column;gap:8px}
+    .cat-item{padding:8px;border-radius:8px;color:var(--muted);cursor:pointer}
+    .cat-item:hover{background:rgba(255,255,255,0.02);color:#fff}
+    .active{background:linear-gradient(90deg, rgba(255,210,74,0.12), rgba(0,120,255,0.06));color:#fff;border-left:3px solid var(--accent)}
+    /* Grid / product cards */
+    .catalog{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.02);overflow:hidden;display:flex;flex-direction:column;gap:10px}
+    .card .img{width:100%;height:160px;border-radius:10px;overflow:hidden;background:#071426;display:flex;align-items:center;justify-content:center}
+    .card .img img{width:100%;height:100%;object-fit:cover;display:block}
+    .card h4{margin:0;font-size:16px}
+    .meta{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .price{font-weight:800;color:var(--accent-2)}
+    .origin{font-size:12px;color:var(--muted)}
+    .specs{font-size:13px;color:var(--muted);min-height:36px}
+    .card-actions{display:flex;gap:8px;align-items:center}
+    .btn-small{padding:8px 10px;border-radius:8px;font-weight:700;border:0;cursor:pointer}
+    .btn-primary{background:var(--accent);color:#071423}
+    .btn-whatsapp{background:#25D366;color:#052018}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+    /* Modal (product details) */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(3,6,10,0.65);display:none;align-items:center;justify-content:center;z-index:120}
+    .modal{width:100%;max-width:920px;background:#04131b;border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.03)}
+    .modal-grid{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    .modal .img-large{width:100%;height:320px;background:#071423;border-radius:10px;overflow:hidden}
+    .modal h2{margin:0 0 6px 0}
+    .spec-list{list-style:none;padding:0;margin:8px 0;color:var(--muted);font-size:14px}
+    .close-x{position:absolute;right:22px;top:18px;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer}
+    /* Floating WhatsApp CTA */
+    .float-wa{position:fixed;right:18px;bottom:18px;background:linear-gradient(90deg,#25d366,#0aa05a);padding:14px;border-radius:999px;color:#052018;font-weight:800;z-index:90;box-shadow:0 18px 40px rgba(1,8,12,0.6)}
+    /* Footer */
+    footer{max-width:1200px;margin:30px auto;color:var(--muted);text-align:center;padding:18px}
+    /* Tiny utilities */
+    .muted{color:var(--muted)}
+    .chip{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.02);font-size:13px}
+    /* Responsive tweaks */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .modal-grid{grid-template-columns:1fr}
+      .hero-right{order:3}
+      .card .img{height:140px}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="wrap nav">
+      <div class="logo">
+        <div class="logo-icon" aria-hidden="true">
+          <!-- simple water + sun icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v4"></path>
+            <path d="M7 4l1.8 3.1"></path>
+            <path d="M17 4l-1.8 3.1"></path>
+            <path d="M6 12c1.6 4 5 6 6 6s4.4-2 6-6c-1.6-3-3.8-4.5-6-4.5S7.6 9 6 12z" />
+          </svg>
+        </div>
+        <div>
+          <div class="brand">Swe-Gam Co. Ltd</div>
+          <div class="tag">Water • Solar • Tools</div>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="Main menu">
+        <a href="#shop">Shop</a>
+        <a href="#services">Services</a>
+        <a href="#brands">Brands</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="cta">
+        <a class="btn-outline" href="#contact">Get In Touch</a>
+        <a class="btn" href="#shop">Browse Products</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero wrap" aria-labelledby="hero-heading">
+    <div>
+      <h1 id="hero-heading">Reliable pumps, solar systems & field tools — trusted across The Gambia</h1>
+      <p>Quality imports, professional installations and after-sales service. Browse equipment, see origin & price, then order quickly on WhatsApp or request an on-site quote.</p>
+
+      <div class="quick-links" role="list">
+        <div class="pill">Borehole Drilling</div>
+        <div class="pill">Solar Pump Kits</div>
+        <div class="pill">Husqvarna Tools</div>
+        <div class="pill">Irrigation Parts</div>
+      </div>
+
+      <div style="margin-top:14px">
+        <div class="searchbox" role="search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="opacity:0.9"><path d="M21 21l-4.35-4.35" stroke="#98a6b4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="#98a6b4" stroke-width="1.5"/></svg>
+          <input id="search" placeholder="Search model, brand or spec (eg. 1.5HP, Husqvarna, 350W)"/>
+          <button id="clearSearch" title="Clear" style="background:transparent;border:0;color:var(--muted);font-weight:700">Clear</button>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-right">
+      <div class="feature-card">
+        <h3>Order on WhatsApp</h3>
+        <p class="muted">Tap the green button on any product to open a pre-filled message — confirm quantity & delivery — pay with Wave/QMoney.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Site Visits & Installation</h3>
+        <p class="muted">Book a site visit for drilling, pump installation or solar mounting. We deliver nationwide.</p>
+      </div>
+
+      <div class="feature-card">
+        <h3>Trusted Brands</h3>
+        <p class="muted">Official distributor & supplier relationships with quality international brands.</p>
+      </div>
+    </aside>
+  </section>
+
+  <!-- Layout: sidebar + catalog -->
+  <main class="layout" id="shop">
+    <!-- Sidebar filters -->
+    <aside class="sidebar" aria-label="Filters">
+      <div class="side-title">Filters</div>
+
+      <div class="filter-group">
+        <label>Category</label>
+        <div class="cat-list" id="categoryList"></div>
+      </div>
+
+      <div class="filter-group">
+        <label>Origin</label>
+        <div class="cat-list" id="originList"></div>
+      </div>
+
+      <div class="filter-group">
+        <label>Price range (GMD)</label>
+        <input id="priceMin" type="number" placeholder="Min" style="width:100%;padding:8px;border-radius:8px;border:0;background:#07202b;color:#fff"/>
+        <div style="height:8px"></div>
+        <input id="priceMax" type="number" placeholder="Max" style="width:100%;padding:8px;border-radius:8px;border:0;background:#07202b;color:#fff"/>
+        <div style="height:10px"></div>
+        <button class="btn-small btn-primary" id="applyPrice">Apply</button>
+      </div>
+
+      <div style="margin-top:12px;font-size:13px;color:var(--muted)">
+        <strong>Quick Links</strong>
+        <div style="margin-top:8px;display:flex;flex-direction:column;gap:8px">
+          <a class="cat-item" onclick="setCategory('Water Solutions')">Water Solutions</a>
+          <a class="cat-item" onclick="setCategory('Solar Energy')">Solar Energy</a>
+          <a class="cat-item" onclick="setCategory('Garden & Forestry')">Garden & Forestry</a>
+          <a class="cat-item" onclick="setCategory('Pipes & Fittings')">Pipes & Fittings</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Catalog -->
+    <section>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div>
+          <h2 style="margin:0">Products</h2>
+          <div style="color:var(--muted);font-size:13px">Browse our catalogue — tap a product for details or order on WhatsApp</div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="chip" id="resultsCount">0 items</div>
+          <button class="btn-outline" id="resetFilters">Reset</button>
+        </div>
+      </div>
+
+      <div id="catalog" class="catalog" aria-live="polite"></div>
+
+      <div style="margin-top:18px;color:var(--muted)">
+        <small>All prices are indicative. Final prices & availability confirmed on WhatsApp. Images may be manufacturer photos — replace with Swe-Gam product photos for production.</small>
+      </div>
+    </section>
+  </main>
+
+  <!-- Services, Brands, Contact sections (brief) -->
+  <section class="wrap" id="services" style="margin-top:28px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+      <div class="card">
+        <h3 style="margin-top:0">Services</h3>
+        <p class="muted">Borehole drilling, pump installations, irrigation system design, solar mount & wiring, maintenance & parts supply. Book a site visit through WhatsApp.</p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Brands & Partners</h3>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+          <div class="muted">Husqvarna • Afripumps • Shurflo • Canadian Solar • KWH Pipes</div>
+          <small class="muted">We source from reputable manufacturers and offer local installation & aftercare.</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="contact" style="margin-top:22px">
+    <div class="card" style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <h3 style="margin:0">Contact Swe-Gam</h3>
+        <div class="muted" style="margin-top:6px">Sales mobile: <strong>+220 9912765</strong> | Office: <strong>+220 4373829</strong></div>
+        <div class="muted" style="margin-top:6px">Email: <strong>sales@swegam.gm</strong></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <a class="btn-whatsapp btn-small btn-whatsapp" href="#" id="contactWhatsApp">Message on WhatsApp</a>
+        <a class="btn btn-small btn-primary" href="#" onclick="window.location='#shop'">Browse Products</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating WhatsApp CTA -->
+  <button class="float-wa" id="floatWhatsapp">💬 Order on WhatsApp</button>
+
+  <!-- Modal -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal" role="document">
+      <button class="close-x" id="closeModal" aria-label="Close">✕</button>
+      <div class="modal-grid">
+        <div>
+          <div class="img-large" id="modalImage"><img src="" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:8px"/></div>
+        </div>
+        <div>
+          <h2 id="modalTitle">Product name</h2>
+          <div style="display:flex;gap:12px;align-items:center;margin-top:6px">
+            <div class="price" id="modalPrice">D0</div>
+            <div class="chip" id="modalOrigin">Origin</div>
+          </div>
+          <p id="modalShort" style="margin-top:10px;color:var(--muted)"></p>
+
+          <ul class="spec-list" id="modalSpecs"></ul>
+
+          <div style="margin-top:14px;display:flex;gap:8px">
+            <button class="btn-whatsapp btn-small" id="modalOrder">Order on WhatsApp</button>
+            <button class="btn-small btn-ghost" id="modalQuote">Request Quote</button>
+          </div>
+
+          <div style="margin-top:16px;color:var(--muted);font-size:13px" id="modalSource"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © Swe-Gam Co. Ltd — Demo site. Replace sample images with official assets. Built for reliable pumps, solar systems and tools in The Gambia.
+  </footer>
+
+  <script>
+    /************************************************************************
+     * CONFIG
+     * - Update SALES_PHONE to your real WhatsApp number (international format)
+     * - Update PRODUCTS array with real items, image URLs, sources and prices
+     ************************************************************************/
+    const SALES_PHONE = '+2209912765'; // change to your sales number (no spaces)
+    // Utility to parse price numbers (remove D and commas)
+    const parsePrice = s => {
+      if(!s || typeof s !== 'string') return NaN;
+      const cleaned = s.replace(/[^\d.]/g,'');
+      return cleaned ? Number(cleaned) : NaN;
+    }
+
+    // Product dataset (polished, one item per subcategory). Replace images with Swe-Gam photos.
+    const PRODUCTS = [
+      // Water Solutions - Solar Water Pumps
+      {
+        id:'solar-sub-1',
+        category:'Water Solutions',
+        subcategory:'Solar Water Pumps',
+        title:'Solar Submersible Pump Kit — 1.5 HP',
+        price:'D22,000',
+        priceValue:22000,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1582719478250-1d1823c2613a?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=1c6b0f7f5b6a2b9b1ef6b2a2b8b71884',
+        short:'Complete solar pump kit with controller & mounting frame — ideal for boreholes.',
+        specs:['1.5 HP motor','MPPT controller included','Suitable for 4\"+ boreholes','Warranty: 12 months'],
+        source:'Manufacturer listing / supplier'
+      },
+
+      // Water Solutions - Electric Water Pumps
+      {
+        id:'elec-sub-2',
+        category:'Water Solutions',
+        subcategory:'Electric Water Pumps',
+        title:'Submersible Pump 2.0 HP (Electric)',
+        price:'D18,500',
+        priceValue:18500,
+        origin:'South Africa',
+        img:'https://images.unsplash.com/photo-1581091012184-f7b1dbe3a432?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=3d44fca1a6cb1f8b9a4d2ca1f8b5b9c8',
+        short:'Reliable submersible pump for domestic and irrigation use.',
+        specs:['2.0 HP','220V single-phase','Copper windings','IP68 rating'],
+        source:'Afripumps / regional distributor'
+      },
+
+      // Water Solutions - Hand Pumps
+      {
+        id:'hand-afri-1',
+        category:'Water Solutions',
+        subcategory:'Hand Pumps',
+        title:'Afridev Hand Pump (Manual)',
+        price:'D4,800',
+        priceValue:4800,
+        origin:'Local assembly',
+        img:'https://images.unsplash.com/photo-1563213126-4a49b7d7a7d3?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=9d44dbd2b9b3e8b8f4f2b4f6a3c5d8b7',
+        short:'Proven manual pump for rural water supply and community wells.',
+        specs:['Manual operation','Up to 60m lift','Heavy duty cast iron'],
+        source:'NGO supplier / local stock'
+      },
+
+      // Water Solutions - Booster Pumps
+      {
+        id:'booster-075',
+        category:'Water Solutions',
+        subcategory:'Booster Pumps',
+        title:'Inline Booster Pump 0.75 HP',
+        price:'D3,500',
+        priceValue:3500,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1584894894513-6f2f0c4f7d8b?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=376c9e1dbf2b6a4e4dfb1c5b7f0a3d4a',
+        short:'Domestic inline booster to increase household water pressure.',
+        specs:['0.75 HP','Compact design','Thermal protection'],
+        source:'Retailer listing'
+      },
+
+      // Water Solutions - Borehole Equipment
+      {
+        id:'drill-kit-1',
+        category:'Water Solutions',
+        subcategory:'Borehole Drilling Equipment',
+        title:'Drilling Casing & Bit Kit (set)',
+        price:'D12,000',
+        priceValue:12000,
+        origin:'International',
+        img:'https://images.unsplash.com/photo-1581091012182-5fb3f7a6b8a5?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=6b4f7a3a5d1b4a7e9c8d4f2c3f9b5a7c',
+        short:'Casing sections, drill bit and accessory kit for borehole contractors.',
+        specs:['Casing (various lengths)','Tricone & core bits','Spare couplings'],
+        source:'Drilling equipment supplier'
+      },
+
+      // Solar Energy - Panels
+      {
+        id:'panel-350',
+        category:'Solar Energy',
+        subcategory:'Solar Panels',
+        title:'350W Poly Solar Panel (Module)',
+        price:'D5,500',
+        priceValue:5500,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=9a7b0c0c9c1b2e2a8d0f4a3b6d7c9f8e',
+        short:'High-efficiency PV module suitable for pump systems and small installations.',
+        specs:['350 W','Polycrystalline','MC4 connectors'],
+        source:'Solar supplier listing'
+      },
+
+      // Solar Energy - Controllers / Inverters
+      {
+        id:'mppt-30',
+        category:'Solar Energy',
+        subcategory:'Solar Controllers / Inverters',
+        title:'MPPT Solar Controller 30A',
+        price:'D2,200',
+        priceValue:2200,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=0e4c8c9f7b8e4d2a8c1b3e4f6a5b7c9d',
+        short:'MPPT controller to optimize solar pump and battery charging performance.',
+        specs:['30A MPPT','12/24V auto','LCD display'],
+        source:'Electronics supplier'
+      },
+
+      // Solar Energy - Pump Kits
+      {
+        id:'kit-1hp',
+        category:'Solar Energy',
+        subcategory:'Solar Water Pump Kits',
+        title:'Solar Water Pump Kit — 1 HP',
+        price:'D28,000',
+        priceValue:28000,
+        origin:'Mixed',
+        img:'https://images.unsplash.com/photo-1509395176048-6a6f4f1b2c3d?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=2f2b1a4d5f7a8b9c3d4e5f6a7b8c9d0e',
+        short:'Complete kit with pump, panels, controller and mounting hardware.',
+        specs:['1 HP pump','Panels + MPPT controller','Mount & wiring included'],
+        source:'Kit vendor'
+      },
+
+      // Solar Energy - Batteries
+      {
+        id:'battery-200ah',
+        category:'Solar Energy',
+        subcategory:'Batteries & Storage',
+        title:'Deep Cycle Battery 200Ah',
+        price:'D9,800',
+        priceValue:9800,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1579370318442-1f8a7f0ba1b3?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b6c5d4a3e2f1g0h9i8j7k6l5m4n3o2p',
+        short:'12V deep-cycle battery for solar systems and backup.',
+        specs:['200 Ah','12V','AGM/Gel options'],
+        source:'Battery dealer'
+      },
+
+      // Garden & Forestry - Chainsaw
+      {
+        id:'husq-445',
+        category:'Garden & Forestry',
+        subcategory:'Chainsaws',
+        title:'Husqvarna 445 — 18" Chainsaw',
+        price:'D26,500',
+        priceValue:26500,
+        origin:'Sweden',
+        img:'https://images.unsplash.com/photo-1582719478260-0c3f6f7f8b8f?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=3b5c7d8e9f0a1b2c3d4e5f6a7b8c9d0e',
+        short:'Lightweight chainsaw for forestry and farm use — Husqvarna quality.',
+        specs:['50.2 cc','SmartStart','18\" bar'],
+        source:'Husqvarna official'
+      },
+
+      // Garden & Forestry - Brushcutters
+      {
+        id:'brush-52cc',
+        category:'Garden & Forestry',
+        subcategory:'Brush Cutters',
+        title:'Petrol Brush Cutter — 52 cc',
+        price:'D6,800',
+        priceValue:6800,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1597764698213-6d1b2f0a9f2c?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=9a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d',
+        short:'Robust brush cutter for farms and grounds maintenance.',
+        specs:['52 cc','Harness included','Easy start'],
+        source:'Garden tools vendor'
+      },
+
+      // Garden & Forestry - Lawn Mowers
+      {
+        id:'lawn-21',
+        category:'Garden & Forestry',
+        subcategory:'Lawn Mowers',
+        title:'Push Lawn Mower — 21" Deck',
+        price:'D8,200',
+        priceValue:8200,
+        origin:'International',
+        img:'https://images.unsplash.com/photo-1582719478272-1c2d3e4f5a6b?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=6f7e8d9c0b1a2c3d4e5f6a7b8c9d0e1f',
+        short:'Durable 4-stroke push mower — commercial grade deck.',
+        specs:['21\" deck','4-stroke engine','Adjustable height'],
+        source:'Garden equipment retailer'
+      },
+
+      // Garden & Forestry - Wheelbarrow
+      {
+        id:'wheel-85',
+        category:'Garden & Forestry',
+        subcategory:'Wheelbarrows',
+        title:'Steel Wheelbarrow 85L',
+        price:'D1,400',
+        priceValue:1400,
+        origin:'Local',
+        img:'https://images.unsplash.com/photo-1526406915892-2a1b3c4d5f6e?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d',
+        short:'Heavy-duty steel tray with pneumatic wheel for farm use.',
+        specs:['85 L tray','Steel construction','Pneumatic wheel'],
+        source:'Local supplier'
+      },
+
+      // Power Tools - Drill
+      {
+        id:'drill-800w',
+        category:'Power Tools',
+        subcategory:'Drilling Machines',
+        title:'Hammer Drill 800W (SDS+)',
+        price:'D3,200',
+        priceValue:3200,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e',
+        short:'800W SDS+ hammer drill for concrete & structural works.',
+        specs:['800 W','SDS+ chuck','Variable speed'],
+        source:'Tool catalog'
+      },
+
+      // Power Tools - Cut Off Saw
+      {
+        id:'cutoff-14',
+        category:'Power Tools',
+        subcategory:'Cutting Machines',
+        title:'Cut-off Saw 14" (Petrol / Electric options)',
+        price:'D7,500',
+        priceValue:7500,
+        origin:'International',
+        img:'https://images.unsplash.com/photo-1581091012188-8a2b3c4d5e6f?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d',
+        short:'Robust cut-off saw for metal and stone cutting jobs.',
+        specs:['14\" abrasive','High torque engine','Portable'],
+        source:'Industrial tools supplier'
+      },
+
+      // Power Tools - Generator
+      {
+        id:'gen-5kva',
+        category:'Power Tools',
+        subcategory:'Generators',
+        title:'Portable Generator 5 kVA',
+        price:'D28,000',
+        priceValue:28000,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1497215842964-222b430dc094?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=4a5b6c7d8e9f0a1b2c3d4e5f6a7b8c9d',
+        short:'5 kVA generator with electric start — suitable for site power and pump backup.',
+        specs:['5 kVA','Electric start','Fuel tank capacity: 20L'],
+        source:'Power equipment supplier'
+      },
+
+      // Pipes & Fittings - PVC
+      {
+        id:'pvc-110',
+        category:'Pipes & Fittings',
+        subcategory:'PVC Pipes',
+        title:'PVC Pressure Pipe 110 mm (per meter)',
+        price:'D250',
+        priceValue:250,
+        origin:'Malaysia',
+        img:'https://images.unsplash.com/photo-1580910051071-6f5b5b5c6d7a?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=5c6b7a8d9e0f1a2b3c4d5e6f7a8b9c0d',
+        short:'KWH-style PVC pressure pipe for irrigation & pressure lines.',
+        specs:['110 mm OD','PVC-U','Per meter pricing'],
+        source:'KWH / pipe supplier'
+      },
+
+      // Fittings
+      {
+        id:'elbow-110',
+        category:'Pipes & Fittings',
+        subcategory:'Fittings',
+        title:'PVC Elbow 90° — 110 mm',
+        price:'D45',
+        priceValue:45,
+        origin:'Local',
+        img:'https://images.unsplash.com/photo-1580910051072-7c6d7a8b9c0a?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e',
+        short:'Standard PVC 90 degree elbow for irrigation plumbing.',
+        specs:['110 mm','PVC-U','Pressure rated'],
+        source:'Local hardware'
+      },
+
+      // Spare parts - Filters
+      {
+        id:'filter-uni',
+        category:'Spare Parts',
+        subcategory:'Filters',
+        title:'Pump Inlet Filter (Stainless Mesh)',
+        price:'D350',
+        priceValue:350,
+        origin:'China',
+        img:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=7b6a5c4d3e2f1a0b9c8d7e6f5a4b3c2d',
+        short:'Universal stainless mesh strainers for submersible pump inlet protection.',
+        specs:['Stainless mesh','Universal fit','Easy to clean'],
+        source:'Marketplace / spare parts'
+      },
+
+      // Services (as bookable items)
+      {
+        id:'svc-borehole',
+        category:'Services',
+        subcategory:'Borehole Drilling',
+        title:'Borehole Drilling — Request Site Quote',
+        price:'Quote',
+        priceValue:0,
+        origin:'Local',
+        img:'https://images.unsplash.com/photo-1508873699372-7ae4c9a9b0b3?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e',
+        short:'Full drilling, casing, pump installation & testing. Final price after site assessment.',
+        specs:['Site survey','Drilling & installation','5 year workmanship warranty (T&C)'],
+        source:'Swe-Gam Services'
+      },
+      {
+        id:'svc-install',
+        category:'Services',
+        subcategory:'Installation',
+        title:'Pump & Solar System Installation (Per site)',
+        price:'From D2,500',
+        priceValue:2500,
+        origin:'Local',
+        img:'https://images.unsplash.com/photo-1518182170545-2d4cc9f2c0b6?q=80&w=1500&auto=format&fit=crop&ixlib=rb-4.0.3&s=3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a',
+        short:'Skilled installation by certified technicians — includes commissioning and testing.',
+        specs:['Onsite installation','Commissioning test','Local support'],
+        source:'Swe-Gam Services'
+      }
+    ];
+
+    /************************************************************************
+     * App State & Helpers
+     ************************************************************************/
+    let state = {
+      category: '',
+      origin: '',
+      q: '',
+      priceMin: null,
+      priceMax: null
+    };
+
+    const $catalog = document.getElementById('catalog');
+    const $resultsCount = document.getElementById('resultsCount');
+
+    // Populate category & origin lists
+    const categories = Array.from(new Set(PRODUCTS.map(p => p.category)));
+    const origins = Array.from(new Set(PRODUCTS.map(p => p.origin)));
+
+    const categoryList = document.getElementById('categoryList');
+    const originList = document.getElementById('originList');
+
+    function makeButtonLabel(text, onClick, cls='cat-item') {
+      const el = document.createElement('div');
+      el.className = cls;
+      el.textContent = text;
+      el.onclick = onClick;
+      return el;
+    }
+
+    // category buttons
+    categoryList.appendChild(makeButtonLabel('All', () => setCategory(''), 'cat-item active'));
+    categories.forEach(c => categoryList.appendChild(makeButtonLabel(c, () => setCategory(c))));
+
+    originList.appendChild(makeButtonLabel('All',()=>setOrigin(''), 'cat-item active'));
+    origins.forEach(o => originList.appendChild(makeButtonLabel(o, ()=>setOrigin(o))));
+
+    function setCategory(c){
+      state.category = c;
+      // update active class
+      [...categoryList.children].forEach(n => n.classList.toggle('active', n.textContent===c || (c==='' && n.textContent==='All')));
+      render();
+    }
+    function setOrigin(o){
+      state.origin = o;
+      [...originList.children].forEach(n => n.classList.toggle('active', n.textContent===o || (o==='' && n.textContent==='All')));
+      render();
+    }
+
+    // Search and filters
+    const $search = document.getElementById('search');
+    const $clearSearch = document.getElementById('clearSearch');
+    const $priceMin = document.getElementById('priceMin');
+    const $priceMax = document.getElementById('priceMax');
+    const $applyPrice = document.getElementById('applyPrice');
+    const $resetFilters = document.getElementById('resetFilters');
+    const $contactWhatsApp = document.getElementById('contactWhatsApp');
+    const $floatWhatsapp = document.getElementById('floatWhatsapp');
+
+    $contactWhatsApp.onclick = () => openWhatsApp('Hello Swe-Gam, I would like to talk to sales about products and prices.');
+    $floatWhatsapp.onclick = () => openWhatsApp('Hello Swe-Gam, I want to place an order or request a quote.');
+
+    $clearSearch.onclick = () => { $search.value=''; state.q=''; render(); }
+    $search.addEventListener('input', (e) => { state.q = e.target.value; debounceRender(); });
+
+    $applyPrice.onclick = ()=> {
+      state.priceMin = $priceMin.value ? Number($priceMin.value) : null;
+      state.priceMax = $priceMax.value ? Number($priceMax.value) : null;
+      render();
+    };
+
+    $resetFilters.onclick = ()=> {
+      state = {category:'', origin:'', q:'', priceMin:null, priceMax:null};
+      $search.value=''; $priceMin.value=''; $priceMax.value='';
+      // reset active classes
+      [...categoryList.children].forEach(n => n.classList.toggle('active', n.textContent==='All'));
+      [...originList.children].forEach(n => n.classList.toggle('active', n.textContent==='All'));
+      render();
+    };
+
+    // Debounce utility
+    let debounceTimer;
+    function debounceRender(){
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(render, 220);
+    }
+
+    /************************************************************************
+     * Render Catalog
+     ************************************************************************/
+    function formatPrice(p){
+      if(p===undefined || p===null || p===0) return 'Quote';
+      if(typeof p === 'string' && p.toLowerCase().includes('from')) return p;
+      return 'D' + p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function render(){
+      const q = (state.q || '').trim().toLowerCase();
+      const list = PRODUCTS.filter(p => {
+        if(state.category && p.category !== state.category) return false;
+        if(state.origin && p.origin !== state.origin) return false;
+        if(q){
+          const matchText = (p.title + ' ' + (p.short||'') + ' ' + (p.specs||[]).join(' ')).toLowerCase();
+          if(!matchText.includes(q)) return false;
+        }
+        // price range
+        if(state.priceMin !== null && p.priceValue && p.priceValue < state.priceMin) return false;
+        if(state.priceMax !== null && p.priceValue && p.priceValue > state.priceMax) return false;
+        return true;
+      });
+
+      $catalog.innerHTML = '';
+      if(list.length === 0){
+        $catalog.innerHTML = '<div style="padding:20px;color:var(--muted)">No items found. Try clearing filters.</div>';
+        $resultsCount.textContent = '0 items';
+        return;
+      }
+
+      $resultsCount.textContent = `${list.length} items`;
+
+      list.forEach(p => {
+        const card = document.createElement('article');
+        card.className = 'card';
+        card.innerHTML = `
+          <div class="img" aria-hidden="true"><img loading="lazy" src="${p.img}" alt="${escapeHtml(p.title)}"/></div>
+          <div>
+            <h4>${escapeHtml(p.title)}</h4>
+            <div class="meta">
+              <div class="origin">${escapeHtml(p.origin)} • <small class="muted">${escapeHtml(p.subcategory)}</small></div>
+              <div class="price">${formatPrice(p.priceValue || p.price)}</div>
+            </div>
+            <div class="specs">${escapeHtml(p.short)}</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-small btn-primary" onclick="openDetail('${p.id}')">Details</button>
+            <button class="btn-small btn-whatsapp" onclick="orderWhatsApp('${p.id}')">Order</button>
+            <button class="btn-small btn-ghost" onclick="quoteWhatsApp('${p.id}')">Request Quote</button>
+          </div>
+        `;
+        $catalog.appendChild(card);
+      });
+    }
+
+    // escape helper
+    function escapeHtml(t){ return String(t).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[s])); }
+
+    // initial render
+    render();
+
+    /************************************************************************
+     * Modal / Detail
+     ************************************************************************/
+    const $modalBackdrop = document.getElementById('modalBackdrop');
+    const $modalImage = document.getElementById('modalImage').querySelector('img');
+    const $modalTitle = document.getElementById('modalTitle');
+    const $modalPrice = document.getElementById('modalPrice');
+    const $modalOrigin = document.getElementById('modalOrigin');
+    const $modalShort = document.getElementById('modalShort');
+    const $modalSpecs = document.getElementById('modalSpecs');
+    const $modalSource = document.getElementById('modalSource');
+    const $modalOrderBtn = document.getElementById('modalOrder');
+    const $modalQuoteBtn = document.getElementById('modalQuote');
+    const $closeModal = document.getElementById('closeModal');
+
+    function openDetail(id){
+      const p = PRODUCTS.find(x => x.id === id);
+      if(!p) return;
+      $modalImage.src = p.img;
+      $modalTitle.textContent = p.title;
+      $modalPrice.textContent = formatPrice(p.priceValue || p.price);
+      $modalOrigin.textContent = p.origin;
+      $modalShort.textContent = p.short || '';
+      $modalSpecs.innerHTML = (p.specs||[]).map(s => `<li>• ${escapeHtml(s)}</li>`).join('');
+      $modalSource.textContent = `Source: ${p.source || 'N/A'}`;
+
+      // attach order handlers
+      $modalOrderBtn.onclick = () => {
+        orderWhatsApp(id);
+      };
+      $modalQuoteBtn.onclick = () => {
+        quoteWhatsApp(id);
+      };
+
+      $modalBackdrop.style.display = 'flex';
+      $modalBackdrop.setAttribute('aria-hidden', 'false');
+    }
+
+    $closeModal.onclick = ()=> closeModal();
+    $modalBackdrop.addEventListener('click', (e) => {
+      if(e.target === $modalBackdrop) closeModal();
+    });
+    function closeModal(){
+      $modalBackdrop.style.display = 'none';
+      $modalBackdrop.setAttribute('aria-hidden', 'true');
+    }
+
+    /************************************************************************
+     * WhatsApp / Order flows
+     ************************************************************************/
+    function openWhatsApp(msg){
+      const num = SALES_PHONE.replace(/\D/g,'');
+      const url = `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+      window.open(url, '_blank');
+    }
+
+    function orderWhatsApp(id){
+      const p = PRODUCTS.find(x => x.id === id); if(!p) return;
+      const msg = [
+        `Order request — Swe-Gam`,
+        `Product: ${p.title}`,
+        `Price (listed): ${formatPrice(p.priceValue || p.price)}`,
+        `Origin: ${p.origin}`,
+        `Please confirm availability, delivery cost and payment options (Wave/QMoney).`,
+        `Delivery address: `,
+        `Quantity: `
+      ].join('\n');
+      openWhatsApp(msg);
+    }
+
+    function quoteWhatsApp(id){
+      const p = PRODUCTS.find(x => x.id === id); if(!p) return;
+      const msg = [
+        `Quotation request — Swe-Gam`,
+        `Item: ${p.title}`,
+        `Specs: ${p.specs ? p.specs.join(', ') : ''}`,
+        `Please provide a site-visit quote or estimated price including installation.`,
+        `Contact name: `,
+        `Contact phone: `
+      ].join('\n');
+      openWhatsApp(msg);
+    }
+
+    // generic message when contacting from contact area
+    document.getElementById('contactWhatsApp').onclick = (e) => {
+      e.preventDefault();
+      openWhatsApp('Hello Swe-Gam, I would like help selecting a product and prices.');
+    }
+
+    // modal order helpers used on cards
+    window.orderWhatsApp = orderWhatsApp;
+    window.quoteWhatsApp = quoteWhatsApp;
+    window.openDetail = openDetail;
+
+    // contact floating
+    document.getElementById('floatWhatsapp').onclick = () => openWhatsApp('Hello Swe-Gam, I want to place an order or request a quote.');
+
+    /************************************************************************
+     * Admin & production notes (visible in console)
+     ************************************************************************/
+    console.info('Swe-Gam demo catalog loaded. To update products, edit the PRODUCTS array in the HTML. Replace SALES_PHONE with your WhatsApp number.');
+  </script>
+</body>
+</html>
